@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+/* Hide scrollbar for all browsers */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer & Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.social-btn {
+  @apply text-white p-3 rounded-lg hover:opacity-80 transition;
+}
+
+@keyframes floating-icons {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-40px) scale(1.1); /* Increased distance */
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(1.3); /* Increased further */
+  }
+}
+
+@keyframes rotating-border {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-floating-icons {
+  animation: floating-icons 6s infinite ease-in-out; /* Slightly longer duration */
+}
+
+.animate-rotating-border {
+  animation: rotating-border 6s linear infinite;
+}
+
