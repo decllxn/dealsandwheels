@@ -1,24 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react"; // Import useState and useEffect from React
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt, FaStar, FaRegClock, FaBookmark, FaRegBookmark } from "react-icons/fa";
 
-// Placeholder Car Data
-const car = {
-  id: 1,
-  image: "/testcar.jpg", // Replace with actual car image
-  year: 2022,
-  make: "BMW",
-  model: "M4",
-  description: "High-performance coupe with a twin-turbo inline-6 engine.",
-  location: "Nairobi, Kenya",
-  featured: true,
-  rating: 4.7,
-  reviews: 120,
-  currentBid: 4500000, // Price in Ksh
-  bidEndsAt: new Date().getTime() + 2 * 24 * 60 * 60 * 1000, // Ends in 2 days
-};
-
-const CarListingCard = () => {
+const CarListingCard = ({ car }) => {
   const [timeLeft, setTimeLeft] = useState("");
   const [isHovered, setIsHovered] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false); // Example bookmark state
@@ -27,25 +11,32 @@ const CarListingCard = () => {
   useEffect(() => {
     const updateTimer = () => {
       const now = new Date().getTime();
-      const distance = car.bidEndsAt - now;
+      const distance = new Date(car.auction_deadline).getTime() - now; // Use actual deadline
 
       if (distance < 0) {
         setTimeLeft("Auction Ended");
         return;
       }
 
-      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((distance / (1000 * 60)) % 60);
-      const seconds = Math.floor((distance / 1000) % 60);
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      setTimeLeft(`${hours}h ${minutes}m ${seconds}s`);
+      let timeString = "";
+      if (days > 0) {
+        timeString += `${days}d `;
+      }
+      timeString += `${hours}h ${minutes}m ${seconds}s`;
+
+      setTimeLeft(timeString);
     };
 
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [car.auction_deadline]);
 
   const handleBookmark = (e) => {
     e.preventDefault(); // Prevent link navigation
@@ -55,7 +46,7 @@ const CarListingCard = () => {
 
   return (
     <Link
-      to={`/cars/${car.id}`}
+      to={`/cars/${car.id}`} // Use actual car ID from backend
       className="group relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -64,7 +55,7 @@ const CarListingCard = () => {
         {/* Car Image */}
         <div className="relative">
           <img
-            src={car.image}
+            src={car.images && car.images.length > 0 ? car.images[0].image : "/placeholder.png"} // Use actual image URL
             alt={`${car.year} ${car.make} ${car.model}`}
             className="w-full h-56 object-cover group-hover:brightness-90 transition-all duration-300"
           />
@@ -100,20 +91,22 @@ const CarListingCard = () => {
             {car.location}
           </div>
 
-          {/* Rating */}
-          <div className="flex items-center text-yellow-500 text-sm mb-3">
-            {[...Array(5)].map((_, i) => (
-              <FaStar key={i} className={i < Math.round(car.rating) ? "text-yellow-400" : "text-gray-300"} />
-            ))}
-            <span className="ml-2 text-gray-700 font-medium">
-              {car.rating} ({car.reviews} reviews)
-            </span>
-          </div>
+          {/* Rating (Assuming your backend provides rating and reviews) */}
+          {car.rating && car.num_reviews !== undefined && (
+            <div className="flex items-center text-yellow-500 text-sm mb-3">
+              {[...Array(5)].map((_, i) => (
+                <FaStar key={i} className={i < Math.round(car.rating) ? "text-yellow-400" : "text-gray-300"} />
+              ))}
+              <span className="ml-2 text-gray-700 font-medium">
+                {car.rating} ({car.num_reviews} reviews)
+              </span>
+            </div>
+          )}
 
           {/* Current Bid & Countdown Timer */}
           <div className="flex justify-between items-center mt-3">
             <span className="text-lg font-bold text-[#0056D2]">
-              Ksh {car.currentBid.toLocaleString()}
+              Ksh {car.price ? car.price.toLocaleString() : 'N/A'} {/* Use actual price */}
             </span>
             <div className="flex items-center text-gray-700 text-sm font-semibold">
               <FaRegClock className="mr-1 text-gray-600" />

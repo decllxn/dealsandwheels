@@ -71,4 +71,28 @@ export const fetchCarImages = async (carId) => {
   }
 };
 
+
+export const fetchAuctions = async (query = "", filters = {}) => {
+  try {
+    const params = new URLSearchParams();
+    if (query) {
+      params.append("search", query);
+    }
+    for (const key in filters) {
+      if (filters[key]) {
+        params.append(key, filters[key]);
+      }
+    }
+
+    const response = await fetch(`${BASE_URL}/auctions/auctions/?${params.toString()}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching auctions:", error);
+    throw error; // Re-throw the error so the component can handle it
+  }
+};
+
 export default api;

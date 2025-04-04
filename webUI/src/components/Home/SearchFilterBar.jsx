@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaSearch, FaSlidersH, FaChevronDown } from "react-icons/fa";
 
@@ -7,17 +7,24 @@ const SearchFilterBar = () => {
   const [filters, setFilters] = useState({
     transmission: "",
     drivetrain: "",
-    fuelType: "",
-    bodyStyle: "",
-    titleStatus: "",
-    sellerType: "",
+    fuel_type: "",
+    body_style: "",
+    title_status: "",
+    seller_type: "",
   });
-
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    navigate(`/search?query=${search}&${new URLSearchParams(filters).toString()}`);
+    navigate(`/auctions/auctions/?search=${search}&${new URLSearchParams(filters).toString()}`);
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [name]: value,
+    }));
   };
 
   const selectStyle = "relative w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 appearance-none";
@@ -29,12 +36,16 @@ const SearchFilterBar = () => {
       <div className="flex items-center justify-between pb-4 border-b border-gray-200">
         <h2 className="text-2xl font-bold text-black uppercase">Auctions</h2>
 
-        {/* Quick Sort Filters */}
+        {/* Quick Sort Filters (You'll need to implement the logic for these) */}
         <div className="hidden md:flex gap-4">
           {["Ending Soon", "New Listings", "No Reserve", "Lowest Mileage", "Nearest to Me"].map((filter, index) => (
             <button
               key={index}
               className="text-gray-700 hover:text-blue-600 transition-all text-sm font-medium"
+              onClick={() => {
+                // Implement your sorting logic here, potentially updating the URL
+                console.log(`Sorting by: ${filter}`);
+              }}
             >
               {filter}
             </button>
@@ -75,8 +86,9 @@ const SearchFilterBar = () => {
           {/* Transmission */}
           <div className="relative">
             <select
+              name="transmission"
               value={filters.transmission}
-              onChange={(e) => setFilters({ ...filters, transmission: e.target.value })}
+              onChange={handleFilterChange}
               className={selectStyle}
             >
               <option value="">Transmission</option>
@@ -92,8 +104,9 @@ const SearchFilterBar = () => {
           {/* Drivetrain */}
           <div className="relative">
             <select
+              name="drivetrain"
               value={filters.drivetrain}
-              onChange={(e) => setFilters({ ...filters, drivetrain: e.target.value })}
+              onChange={handleFilterChange}
               className={selectStyle}
             >
               <option value="">Drivetrain</option>
@@ -108,8 +121,9 @@ const SearchFilterBar = () => {
           {/* Fuel Type */}
           <div className="relative">
             <select
-              value={filters.fuelType}
-              onChange={(e) => setFilters({ ...filters, fuelType: e.target.value })}
+              name="fuel_type"
+              value={filters.fuel_type}
+              onChange={handleFilterChange}
               className={selectStyle}
             >
               <option value="">Fuel Type</option>
@@ -127,8 +141,9 @@ const SearchFilterBar = () => {
           {/* Body Style */}
           <div className="relative">
             <select
-              value={filters.bodyStyle}
-              onChange={(e) => setFilters({ ...filters, bodyStyle: e.target.value })}
+              name="body_style"
+              value={filters.body_style}
+              onChange={handleFilterChange}
               className={selectStyle}
             >
               <option value="">Body Style</option>
@@ -154,8 +169,9 @@ const SearchFilterBar = () => {
           {/* Title Status */}
           <div className="relative">
             <select
-              value={filters.titleStatus}
-              onChange={(e) => setFilters({ ...filters, titleStatus: e.target.value })}
+              name="title_status"
+              value={filters.title_status}
+              onChange={handleFilterChange}
               className={selectStyle}
             >
               <option value="">Title Status</option>
@@ -170,8 +186,9 @@ const SearchFilterBar = () => {
           {/* Seller Type */}
           <div className="relative">
             <select
-              value={filters.sellerType}
-              onChange={(e) => setFilters({ ...filters, sellerType: e.target.value })}
+              name="seller_type"
+              value={filters.seller_type}
+              onChange={handleFilterChange}
               className={selectStyle}
             >
               <option value="">Seller Type</option>
