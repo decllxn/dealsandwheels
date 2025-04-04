@@ -11,11 +11,12 @@ class AuctionImageSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
+    user = serializers.StringRelatedField(read_only=True)  # Make user read-only
 
     class Meta:
         model = Review
         fields = ["id", "user", "rating", "comment", "created_at"]
+        read_only_fields = ["created_at"]  # Ensure created_at is read-only
 
 
 class EquipmentSerializer(serializers.ModelSerializer):
@@ -45,11 +46,13 @@ class VideoWalkaroundSerializer(serializers.ModelSerializer):
 class CarAuctionSerializer(serializers.ModelSerializer):
     images = AuctionImageSerializer(many=True, read_only=True)
     reviews = ReviewSerializer(many=True, read_only=True)
-    equipment = EquipmentSerializer(many=True, read_only=True)
-    modifications = ModificationSerializer(many=True, read_only=True)
-    known_flaws = KnownFlawSerializer(many=True, read_only=True)
-    videos = VideoWalkaroundSerializer(many=True, read_only=True)
+    equipment = EquipmentSerializer(many=True)  # Allow adding/removing existing equipment
+    modifications = ModificationSerializer(many=True)  # Allow adding/removing existing modifications
+    known_flaws = KnownFlawSerializer(many=True)  # Allow adding/removing existing known flaws
+    videos = VideoWalkaroundSerializer(many=True)  # Allow adding/removing existing videos
+    seller = serializers.StringRelatedField(read_only=True) # Make seller read-only
 
     class Meta:
         model = CarAuction
         fields = "__all__"
+        read_only_fields = ["id", "created_at", "updated_at", "num_bids", "current_bid"]

@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('dnw-admin-panel/', admin.site.urls),
 
     # accounts
     path('accounts/', include('accounts.urls')),

@@ -6,6 +6,8 @@ class IsAuthenticatedOrReadOnly(permissions.BasePermission):
     but require authentication for creating, updating, or deleting auctions.
     """
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:  # GET, HEAD, OPTIONS
+        # Allow read-only access (GET, HEAD, OPTIONS) to anyone
+        if request.method in permissions.SAFE_METHODS:
             return True
+        # Require authentication for all other methods (POST, PUT, PATCH, DELETE)
         return request.user and request.user.is_authenticated

@@ -24,6 +24,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold",  # before django.contrib.admin
+    "unfold.contrib.filters",  # optional, if special filters are needed
+    "unfold.contrib.forms",  # optional, if special form elements are needed
+    "unfold.contrib.inlines",  # optional, if special inlines are needed
+    "unfold.contrib.import_export",  # optional, if django-import-export package is used
+    "unfold.contrib.guardian",  # optional, if django-guardian package is used
+    "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -175,8 +182,14 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
+        #'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',  # Removes Browsable API
+    ),
 }
 
 SIMPLE_JWT = {
@@ -216,3 +229,25 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+
+
+
+
+
+# UNFOLD ADMIN CUSTOMIZATION
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# See https://docs.djangoproject.com/en/3.2/ref/settings/#admins
+
+UNFOLD = {
+
+    "SITE_TITLE": "Deals & Wheels Admin",
+    "SITE_HEADER": "Deals & Wheels",
+    "SITE_TAGLINE": "Premium Car Auction Admin Panel",
+    "SHOW_COUNTS": True,
+    "DARK_MODE": True,
+    "COLLAPSIBLE_NAV": True,
+    "ENVIRONMENT": "production",
+    "ENVIRONMENT_COLOR": "red",
+    "SHOW_ACTIONS_ON_TOP": True
+}
