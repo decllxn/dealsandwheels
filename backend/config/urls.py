@@ -10,6 +10,7 @@ urlpatterns = [
     # accounts
     path('accounts/', include('accounts.urls')),
     path('vehicles/', include('car_listings.urls')),
+    path('auctions/', include('auctions.urls')),
 
     # auth
     path('auth/', include('dj_rest_auth.urls')),
