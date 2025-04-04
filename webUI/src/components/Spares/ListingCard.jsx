@@ -6,9 +6,9 @@ const ListingCard = ({ part }) => {
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
       <div className="relative">
         <img
-          src={part.imageUrl}
+          src="/shocks.jpeg"
           alt={part.name}
-          className="w-full h-48 object-cover"
+          className="w-full h-48 object-contain"
         />
         {part.onSale && (
           <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded-sm text-xs font-semibold">

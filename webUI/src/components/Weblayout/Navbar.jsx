@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaCar, FaUsers } from "react-icons/fa";
+import { FaCar, FaUsers, FaChevronDown } from "react-icons/fa";
 import ProfileDropdown from "./ProfileDropdown";
 import AuthModal from "./AuthModal";
 import ThemeToggle from "./ThemeToggle";

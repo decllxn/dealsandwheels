@@ -18,6 +18,7 @@ const Contact = lazy(() => import("./pages/ContactPage"));
 const About = lazy(() => import("./pages/AboutPage"));
 const Profile = lazy(() => import("./pages/ProfilePage"));
 const Settings = lazy(() => import("./pages/SettingsPage.jsx"))
+const Watchlist = lazy(() => import("./pages/WatchListPage.jsx"));
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/about-us" element={<About />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/watchlist" element={<Watchlist />} />
         </Routes>
       </Suspense>
     </Router>

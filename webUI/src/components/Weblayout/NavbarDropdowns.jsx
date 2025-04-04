@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { FaChevronDown } from "react-icons/fa";
 
 export const VehiclesDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,6 +27,7 @@ export const VehiclesDropdown = () => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>Vehicles</span>
+        <FaChevronDown className="text-white text-xs" />
       </button>
       {isOpen && (
         <motion.div
@@ -89,6 +91,7 @@ export const MoreDropdown = () => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>More</span>
+        <FaChevronDown className="text-white text-xs" />
       </button>
       {isOpen && (
         <motion.div

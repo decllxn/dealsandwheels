@@ -30,15 +30,6 @@ const OurVision = () => {
           </span>
         ))}
 
-        {/* Rotating Dotted Border */}
-        <div className="absolute w-full h-full rounded-full border-4 border-transparent">
-          <div className="absolute inset-0 animate-rotating-border">
-            <svg className="w-full h-full" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="48" fill="none" stroke="#1f1f1f" strokeWidth="3" strokeDasharray="8 10" strokeLinecap="round" />
-            </svg>
-          </div>
-        </div>
-
         <img
           src="/testcar.jpg" // Replace with your image path
           alt="Our Vision"

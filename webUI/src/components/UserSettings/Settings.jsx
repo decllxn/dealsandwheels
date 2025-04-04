@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FaUser, FaLock, FaPalette, FaBell, FaCreditCard, FaLink, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaUser, FaPalette, FaBell, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import Switch from "react-switch"; // Import react-switch
 
 const Settings = () => {
   const [theme, setTheme] = useState("light");
@@ -52,7 +53,7 @@ const Settings = () => {
           {expandedSections.account ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {expandedSections.account && (
-          <div className="space-y-3">
+          <div className="space-y-4">
             <div className="flex justify-between items-center">
               <span>Email:</span>
               <span className="text-gray-600">munene.declan1@gmail.com</span>
@@ -83,7 +84,7 @@ const Settings = () => {
           {expandedSections.appearance ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {expandedSections.appearance && (
-          <div className="space-y-3">
+          <div className="space-y-4">
             <p className="text-gray-700 mb-3">Choose your preferred theme:</p>
             <div className="flex space-x-4">
               {["light", "dark", "auto"].map((mode) => (
@@ -124,11 +125,11 @@ const Settings = () => {
               <h4 className="text-lg font-semibold">Email Preferences</h4>
               <div className="flex justify-between items-center mt-2">
                 <span>Daily Car Auctions Email</span>
-                <input type="checkbox" checked={notifications.dailyEmail} onChange={() => toggleNotification("dailyEmail", "email")} className="form-checkbox h-5 w-5 text-blue-600" />
+                <Switch checked={notifications.dailyEmail} onChange={() => toggleNotification("dailyEmail", "email")} />
               </div>
               <div className="flex justify-between items-center mt-2">
                 <span>Weekly Market Recap Email</span>
-                <input type="checkbox" checked={notifications.weeklyEmail} onChange={() => toggleNotification("weeklyEmail", "email")} className="form-checkbox h-5 w-5 text-blue-600" />
+                <Switch checked={notifications.weeklyEmail} onChange={() => toggleNotification("weeklyEmail", "email")} />
               </div>
             </div>
 
@@ -136,7 +137,7 @@ const Settings = () => {
               <h4 className="text-lg font-semibold">General Notifications</h4>
               <div className="flex justify-between items-center mt-2">
                 <span>Play sound when bids are placed</span>
-                <input type="checkbox" checked={notifications.soundOnBid} onChange={() => toggleNotification("soundOnBid", "email")} className="form-checkbox h-5 w-5 text-blue-600" />
+                <Switch checked={notifications.soundOnBid} onChange={() => toggleNotification("soundOnBid", "email")} />
               </div>
             </div>
 
@@ -145,15 +146,15 @@ const Settings = () => {
               <div className="flex justify-between items-center mt-2">
                 <span>Outbid Alerts</span>
                 <div className="flex space-x-2">
-                  <input type="checkbox" checked={notifications.outbidAlert.email} onChange={() => toggleNotification("outbidAlert", "email")} className="form-checkbox h-5 w-5 text-blue-600" /><span>Email</span>
-                  <input type="checkbox" checked={notifications.outbidAlert.inSite} onChange={() => toggleNotification("outbidAlert", "inSite")} className="form-checkbox h-5 w-5 text-blue-600" /><span>In-Site</span>
+                  <Switch checked={notifications.outbidAlert.email} onChange={() => toggleNotification("outbidAlert", "email")} /><span>Email</span>
+                  <Switch checked={notifications.outbidAlert.inSite} onChange={() => toggleNotification("outbidAlert", "inSite")} /><span>In-Site</span>
                 </div>
               </div>
               <div className="flex justify-between items-center mt-2">
                 <span>1 Hour Before Auction Ends</span>
                 <div className="flex space-x-2">
-                  <input type="checkbox" checked={notifications.auctionEnding.email} onChange={() => toggleNotification("auctionEnding", "email")} className="form-checkbox h-5 w-5 text-blue-600" /><span>Email</span>
-                  <input type="checkbox" checked={notifications.auctionEnding.inSite} onChange={() => toggleNotification("auctionEnding", "inSite")} className="form-checkbox h-5 w-5 text-blue-600" /><span>In-Site</span>
+                  <Switch checked={notifications.auctionEnding.email} onChange={() => toggleNotification("auctionEnding", "email")} /><span>Email</span>
+                  <Switch checked={notifications.auctionEnding.inSite} onChange={() => toggleNotification("auctionEnding", "inSite")} /><span>In-Site</span>
                 </div>
               </div>
             </div>
@@ -163,15 +164,15 @@ const Settings = () => {
               <div className="flex justify-between items-center mt-2">
                 <span>New Bids on My Auction</span>
                 <div className="flex space-x-2">
-                  <input type="checkbox" checked={notifications.newBidSeller.email} onChange={() => toggleNotification("newBidSeller", "email")} className="form-checkbox h-5 w-5 text-blue-600" /><span>Email</span>
-                  <input type="checkbox" checked={notifications.newBidSeller.inSite} onChange={() => toggleNotification("newBidSeller", "inSite")} className="form-checkbox h-5 w-5 text-blue-600" /><span>In-Site</span>
+                  <Switch checked={notifications.newBidSeller.email} onChange={() => toggleNotification("newBidSeller", "email")} /><span>Email</span>
+                  <Switch checked={notifications.newBidSeller.inSite} onChange={() => toggleNotification("newBidSeller", "inSite")} /><span>In-Site</span>
                 </div>
               </div>
               <div className="flex justify-between items-center mt-2">
                 <span>New Comments on My Auction</span>
                 <div className="flex space-x-2">
-                  <input type="checkbox" checked={notifications.newCommentSeller.email} onChange={() => toggleNotification("newCommentSeller", "email")} className="form-checkbox h-5 w-5 text-blue-600" /><span>Email</span>
-                  <input type="checkbox" checked={notifications.newCommentSeller.inSite} onChange={() => toggleNotification("newCommentSeller", "inSite")} className="form-checkbox h-5 w-5 text-blue-600" /><span>In-Site</span>
+                  <Switch checked={notifications.newCommentSeller.email} onChange={() => toggleNotification("newCommentSeller", "email")} /><span>Email</span>
+                  <Switch checked={notifications.newCommentSeller.inSite} onChange={() => toggleNotification("newCommentSeller", "inSite")} /><span>In-Site</span>
                 </div>
               </div>
             </div>
